@@ -79,8 +79,7 @@ function getTitle() {
     return titleProject
 }
 
-let a = b
-
+let b = c;
 
 
 
