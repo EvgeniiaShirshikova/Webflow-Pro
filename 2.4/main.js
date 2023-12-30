@@ -1,26 +1,5 @@
-// let x = 5;
-
-// if (x > 10) {
-//     console.log('условие верно');
-// } else {
-//     console.log('условие неверно');
-// } 
-
-// let a = 5;
-// let b = '10';
-// let result = a + +b;
-// console.log(a.toString());
-
-// console.log(result);
-
-// console.log(typeof a);
-// console.log(typeof b);
-
-// let age = prompt('Укажите ваш возраст');
-// let a = 10
-// let res = +age + a
-
-// console.log(res);
+let screenPrice = 10000;
+let percentage = 0.1;
 
 let titleProject = prompt('Название проекта?');
 console.log(titleProject);
@@ -30,9 +9,6 @@ console.log(screensValue);
 
 let responsive = prompt('Нужен отзывчивый дизайн? Укажите true или false');
 console.log(responsive);
-
-let screenPrice = +prompt('Какая цена разработки экранов?');
-console.log(screenPrice);
 
 let service1 = prompt('Какой сервис нужен?');
 console.log(service1);
@@ -49,7 +25,6 @@ console.log(servicePrice2);
 let fullPrice = screenPrice + servicePrice1 + servicePrice2;
 console.log(fullPrice);
 
-let percentage = 0.1;
 
 let servicePercentPrice = Math.round(fullPrice*(1 - percentage));
 console.log(servicePercentPrice);
