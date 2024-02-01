@@ -40,11 +40,29 @@ function createAndAnimateStar(wrapper, radius, duration, direction) {
     const offsetX = (Math.random() - 0.5) * 80;
     const offsetY = (Math.random() - 0.5) * 80;
 
-    let animationName = `rotateAndScale-${Math.random().toString(36).substr(2, 9)}`;
+    //let animationName = `rotateAndScale-${Math.random().toString(36).substr(2, 9)}`;
 
     let rotationDirection = direction === 'clockwise' ? '' : '-';
 
-    let keyframes = `
+    const tl = gsap.timeline({})
+
+    tl.fromTo(svgContainer, {
+        rotation: 0,
+        x: 0,
+        y: 0,
+        rotation: 0,
+        scale: initialScale,
+    }, {
+        duration: duration,
+        rotation: rotationDirection+rotations,
+        x: radius + offsetX, 
+        y: radius + offsetY,
+        rotation: -rotations,
+        scale: initialScale    
+    })
+    .fromTo(svgContainer, {opacity: initialOpacity}, {opacity: 0}, "<25%")
+
+    /* let keyframes = `
     @keyframes ${animationName} {
         0% {
             transform: rotate(0deg) translate(0, 0) rotate(0deg) scale(${initialScale});
@@ -64,7 +82,7 @@ function createAndAnimateStar(wrapper, radius, duration, direction) {
     styleSheet.innerText = keyframes;
     document.head.appendChild(styleSheet);
 
-    svgContainer.style.animation = `${animationName} ${duration}s linear forwards`;
+    svgContainer.style.animation = `${animationName} ${duration}s linear forwards`; */
 
     svgContainer.addEventListener('animationend', () => {
         svgContainer.remove();
@@ -87,8 +105,8 @@ function maintainStars(wrapper, direction) {
 }
 
 
-/* maintainStars('.svg-rotate-circle', 'clockwise');
-maintainStars('.svg-rotate-circle-2', 'clockwise'); */
+maintainStars('.svg-rotate-circle', 'clockwise');
+maintainStars('.svg-rotate-circle-2', 'clockwise');
 
 /*function isVisible (ele) {
     const { top, bottom } = ele.getBoundingClientRect();
@@ -100,7 +118,7 @@ maintainStars('.svg-rotate-circle-2', 'clockwise'); */
     );
   }*/
 
-const observer = new IntersectionObserver(entries => {
+/* const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             maintainStars('.svg-rotate-circle', 'clockwise');
@@ -108,7 +126,7 @@ const observer = new IntersectionObserver(entries => {
             document.querySelector('.svg-rotate-circle').innerHTML = '';
         };
     }); 
-    }, {root: null,
+    }, {root:  null,
     rootMargin: '0px',
     threshold: 0});
 
@@ -149,4 +167,4 @@ function adjustSpinnerContainerSize() {
 
 window.addEventListener('load', adjustSpinnerContainerSize);
 
-window.addEventListener('resize', adjustSpinnerContainerSize);
+window.addEventListener('resize', adjustSpinnerContainerSize); */
