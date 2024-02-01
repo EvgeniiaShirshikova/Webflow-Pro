@@ -22,11 +22,22 @@ function createLineV() {
             opacity: 1}, {duration: 1, height: 0,
                 opacity: 0})
 
-/*      tlVert.set(lineV, {
+    }
+
+    animateLine();
+}
+
+createLineV();
+
+/* function createLineV() {  
+    const lineV = baseLineV.cloneNode(true);
+    frag.appendChild(lineV);
+    linesVWrapper.appendChild(frag);
+
+    const tlVert = gsap.timeline({})
+        
+    tlVert.set(lineV, {
             left: gsap.utils.random(20, 200),
-            height: 200,
-            opacity: 1,
-            y: 0
         })
         .to(lineV, {
             duration: gsap.utils.random(5, 10),
@@ -37,14 +48,12 @@ function createLineV() {
             height: 0,
             opacity: 0,
         })
- */
-    }
 
-    animateLine();
+    tlVert.eventCallback("onComplete", () => {
+        lineV.remove();
+    });
 }
-
-createLineV();
-
+ */
 
 /* setInterval(() => {
   createLineV();
