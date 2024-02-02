@@ -9,18 +9,18 @@ function createLineV() {
 
     function animateLine() {
         const tlVert = gsap.timeline({
-            repeat: -1,
-            onRepeat: animateLine
+            //repeat: -1,
+            onComplete: animateLine
         })
         
         tlVert.set(lineV, {
             left: gsap.utils.random(20, 200),
         })
-        .fromTo(lineV, {y: 0}, {duration: gsap.utils.random(5, 10),
+        .fromTo(lineV, {y: 0}, {duration: gsap.utils.random(2, 10, 2),
             y: 500})
-        .fromTo(lineV, {height: 200,
-            opacity: 1}, {duration: 1, height: 0,
-                opacity: 0})
+        .fromTo(lineV, {
+            opacity: 1}, {duration: 1, 
+                opacity: 0, ease: "power1.out"})
 
     }
 

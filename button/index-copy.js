@@ -50,17 +50,15 @@ function createAndAnimateStar(wrapper, radius, duration, direction) {
         rotation: 0,
         x: 0,
         y: 0,
-        rotation: 0,
         scale: initialScale,
     }, {
         duration: duration,
         rotation: rotationDirection+rotations,
         x: radius + offsetX, 
         y: radius + offsetY,
-        rotation: -rotations,
         scale: initialScale    
     })
-    .fromTo(svgContainer, {opacity: initialOpacity}, {opacity: 0}, "<25%")
+    .fromTo(svgContainer, {opacity: initialOpacity}, {opacity: 0}, "<80%")
 
     /* let keyframes = `
     @keyframes ${animationName} {

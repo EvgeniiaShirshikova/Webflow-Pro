@@ -10,14 +10,21 @@ body {
 }
 
 .container {
+  display: flex;
   position: relative;
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
-.lines-horiz,
 .lines-vert {
+  width: 500px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.lines-horiz {
   position: absolute;
   top: 0px;
   left: 0px;
