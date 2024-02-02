@@ -1,5 +1,7 @@
 const linesVWrapper = document.querySelector(".lines-vert");
 const baseLineV = document.querySelector(".lineV");
+const linesHWrapper = document.querySelector(".lines-horiz");
+const baseLineH = document.querySelector(".lineH");
 const frag = document.createDocumentFragment();
 
 function createLineV() {  
@@ -14,7 +16,7 @@ function createLineV() {
         })
         
         tlVert.set(lineV, {
-            left: gsap.utils.random(20, 200),
+            left: gsap.utils.random(50, 200),
         })
         .fromTo(lineV, {y: 0}, {duration: gsap.utils.random(2, 10, 2),
             y: 500})
@@ -28,6 +30,33 @@ function createLineV() {
 }
 
 createLineV();
+
+function createLineH() {  
+    const lineH = baseLineH.cloneNode(true);
+    frag.appendChild(lineH);
+    linesHWrapper.appendChild(frag);
+
+    function animateLine() {
+        const tlHoriz = gsap.timeline({
+            onComplete: animateLine
+        })
+        
+        tlHoriz.set(lineH, {
+            top: gsap.utils.random(100, 500),
+        })
+        .fromTo(lineH, {x: 0}, {duration: gsap.utils.random(2, 10, 2),
+            x: -300})
+        .fromTo(lineH, {
+            opacity: 1}, {duration: 1, 
+                opacity: 0, ease: "power1.out"})
+
+    }
+
+    animateLine();
+}
+
+createLineH();
+createLineH();
 
 /* function createLineV() {  
     const lineV = baseLineV.cloneNode(true);
