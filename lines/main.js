@@ -29,18 +29,12 @@ const tlHero = gsap.timeline({});
 
 //анимация линий
 
-//const baseLineVert = document.querySelector(".lineVert");
-//const baseLineHorizLeft = document.querySelector(".lineHorizLeft");
-//const baseLineHorizRight = document.querySelector(".lineHorizRight");
 const frag = document.createDocumentFragment();
 
-
 function createLineVert(wrapper, baseLine) {
-    let baseLineVert =  document.querySelector(baseLine);
-    const lineVert = baseLineVert.cloneNode(true);
+    const lineVert = baseLine.cloneNode(true);
     frag.appendChild(lineVert);
-    let linesWrapper = document.querySelector(wrapper);
-    linesWrapper.appendChild(frag);
+    wrapper.appendChild(frag);
 
     function animateLine() {
         const tlVert = gsap.timeline({
@@ -56,16 +50,13 @@ function createLineVert(wrapper, baseLine) {
             opacity: 1}, {duration: 1, 
                 opacity: 0, ease: "power1.out"})
     }
-
     animateLine();
 }
 
 function createLineHorizLeft(wrapper, baseLine) {  
-    let baseLineHorizLeft =  document.querySelector(baseLine);
-    const lineHorizLeft = baseLineHorizLeft.cloneNode(true);
+    const lineHorizLeft = baseLine.cloneNode(true);
     frag.appendChild(lineHorizLeft);
-    let linesWrapper = document.querySelector(wrapper);
-    linesWrapper.appendChild(frag);
+    wrapper.appendChild(frag);
 
     function animateLine() {
         const tlHorizLeft = gsap.timeline({
@@ -86,11 +77,9 @@ function createLineHorizLeft(wrapper, baseLine) {
 }
 
 function createLineHorizRight(wrapper, baseLine) {  
-    let baseLineHorizRight =  document.querySelector(baseLine);
-    const lineHorizRight = baseLineHorizRight.cloneNode(true);
+    const lineHorizRight = baseLine.cloneNode(true);
     frag.appendChild(lineHorizRight);
-    let linesWrapper = document.querySelector(wrapper);
-    linesWrapper.appendChild(frag);
+    wrapper.appendChild(frag);
 
     function animateLine() {
         const tlHorizRight = gsap.timeline({
@@ -112,43 +101,50 @@ function createLineHorizRight(wrapper, baseLine) {
 
 let sections = document.querySelectorAll('section');
 
-sections.forEach((section) => createLines(
-    createLineVert("section .lines-vert.left", 'section .lineVert');
-    createLineVert("section .lines-vert.right", 'section .lineVert');
-    createLineHorizLeft('section .lines-horiz-top.left', 'section .lineHorizLeft');
-    createLineHorizLeft('section .lines-horiz-bottom.left', 'section .lineHorizLeft');
-    createLineHorizRight('section .lines-horiz-top.right', 'section .lineHorizRight');
-    createLineHorizRight('section .lines-horiz-bottom.right', 'section .lineHorizRight');
-));
+function createLines(section) {
+    createLineVert(section.querySelector('.lines-vert.left'), section.querySelector('.lineVert'));
+    createLineVert(section.querySelector('.lines-vert.right'), section.querySelector('.lineVert'));
+    createLineHorizLeft(section.querySelector('.lines-horiz-top.left'), section.querySelector('.lineHorizLeft'));
+    createLineHorizLeft(section.querySelector('.lines-horiz-bottom.left'), section.querySelector('.lineHorizLeft'));
+    createLineHorizRight(section.querySelector('.lines-horiz-top.right'), section.querySelector('.lineHorizRight'));
+    createLineHorizRight(section.querySelector('.lines-horiz-bottom.right'), section.querySelector('.lineHorizRight'));
+}
 
-
-
-/* function createLines() {
-    createLineVert("section .lines-vert.left", 'section .lineVert');
-    createLineVert("section .lines-vert.right", 'section .lineVert');
-    createLineHorizLeft('section .lines-horiz-top.left', 'section .lineHorizLeft');
-    createLineHorizLeft('section .lines-horiz-bottom.left', 'section .lineHorizLeft');
-    createLineHorizRight('section .lines-horiz-top.right', 'section .lineHorizRight');
-    createLineHorizRight('section .lines-horiz-bottom.right', 'section .lineHorizRight');
-}  */
-
-/* gsap.to("section", {
-    stagger: createLines,
-    scrollTrigger: {
-    trigger: "section",
-    start: "top top", // when the top of the trigger hits the top of the viewport
-    end: "bottom top", // end after scrolling 500px beyond the start
+/* function stopCreateLines(section) {
+    createLines(section) {
+        return
     }
-}) */
+} */
 
-/* let tl = gsap.timeline({
-    stagger: "section",
-    scrollTrigger: {
-      trigger: "section",
-      start: "top top", // when the top of the trigger hits the top of the viewport
-      end: "bottom top", // end after scrolling 500px beyond the start
-      onEnter: createLines,
-    },
+sections.forEach((section) => {
+    ScrollTrigger.create({
+        trigger: section,
+        start: "top top",
+        end: "bottom top",
+        markers: true,
+        //scrub: true,
+        //animation: createLines(section),
+        onEnter: () => createLines(section),
+        onLeave: () => stopCreateLines(section),
+        onEnterBack: () => createLines(section),
+        onLeaveBack: () => stopCreateLines(section),
+        //onRefresh: () => logRed("onRefresh"),
+        //onUpdate: self => redProgress.innerText = "progress: " + self.progress.toFixed(3)     
+    });
   });
- */
 
+
+  /* ScrollTrigger.create({
+    trigger: "section",
+    start: "top top",
+    end: "bottom top",
+    markers: true,
+    //scrub: true,
+    animation: animation,
+    onEnter: () => logRed("onEnter"),
+    onLeave: () => logRed("onLeave"),
+    onEnterBack: () => logRed("onEnterBack"),
+    onLeaveBack: () => logRed("onLeaveBack"),
+    onRefresh: () => logRed("onRefresh"),
+    onUpdate: self => redProgress.innerText = "progress: " + self.progress.toFixed(3)
+  }); */
